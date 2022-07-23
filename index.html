@@ -11118,11 +11118,12 @@ var $author$project$GameOfLife$getAlive = F3(
 	});
 var $author$project$GameOfLife$getTotalLiveNeighbors = F2(
 	function (cells, currentCell) {
+		var getAliveForCurrentCell = A2($author$project$GameOfLife$getAlive, cells, currentCell);
 		return A3(
 			$elm$core$List$foldl,
 			F2(
 				function (idToGet, total) {
-					return A3($author$project$GameOfLife$getAlive, cells, currentCell, idToGet) ? (total + 1) : (A3($author$project$GameOfLife$getAlive, cells, currentCell, idToGet) ? (total + 1) : (A3($author$project$GameOfLife$getAlive, cells, currentCell, idToGet) ? (total + 1) : (A3($author$project$GameOfLife$getAlive, cells, currentCell, idToGet) ? (total + 1) : (A3($author$project$GameOfLife$getAlive, cells, currentCell, idToGet) ? (total + 1) : (A3($author$project$GameOfLife$getAlive, cells, currentCell, idToGet) ? (total + 1) : (A3($author$project$GameOfLife$getAlive, cells, currentCell, idToGet) ? (total + 1) : (A3($author$project$GameOfLife$getAlive, cells, currentCell, idToGet) ? (total + 1) : total)))))));
+					return getAliveForCurrentCell(idToGet) ? (total + 1) : (getAliveForCurrentCell(idToGet) ? (total + 1) : (getAliveForCurrentCell(idToGet) ? (total + 1) : (getAliveForCurrentCell(idToGet) ? (total + 1) : (getAliveForCurrentCell(idToGet) ? (total + 1) : (getAliveForCurrentCell(idToGet) ? (total + 1) : (getAliveForCurrentCell(idToGet) ? (total + 1) : (getAliveForCurrentCell(idToGet) ? (total + 1) : total)))))));
 				}),
 			0,
 			_List_fromArray(

@@ -97,44 +97,43 @@ getAlive cells currentCell idToGet =
             False
 
 
-
---  I think there's a way to reuse the getAlive cells cell.id since its used in every block
--- but I'm forgetting how to do it
-
-
 getTotalLiveNeighbors : Array Cell -> Cell -> Int
 getTotalLiveNeighbors cells currentCell =
+    let
+        getAliveForCurrentCell =
+            getAlive cells currentCell
+    in
     List.foldl
         (\idToGet total ->
-            if getAlive cells currentCell idToGet then
+            if getAliveForCurrentCell idToGet then
                 -- top left
                 total + 1
 
-            else if getAlive cells currentCell idToGet then
+            else if getAliveForCurrentCell idToGet then
                 -- top
                 total + 1
 
-            else if getAlive cells currentCell idToGet then
+            else if getAliveForCurrentCell idToGet then
                 -- top right
                 total + 1
 
-            else if getAlive cells currentCell idToGet then
+            else if getAliveForCurrentCell idToGet then
                 -- left
                 total + 1
 
-            else if getAlive cells currentCell idToGet then
+            else if getAliveForCurrentCell idToGet then
                 -- right
                 total + 1
 
-            else if getAlive cells currentCell idToGet then
+            else if getAliveForCurrentCell idToGet then
                 -- bottom left
                 total + 1
 
-            else if getAlive cells currentCell idToGet then
+            else if getAliveForCurrentCell idToGet then
                 -- bottom
                 total + 1
 
-            else if getAlive cells currentCell idToGet then
+            else if getAliveForCurrentCell idToGet then
                 -- bottom right
                 total + 1
 
