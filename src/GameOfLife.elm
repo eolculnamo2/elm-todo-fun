@@ -186,23 +186,6 @@ handleCellIteration cells currentCell =
     }
 
 
-
--- if currentCell.isAlive then
---     { currentCell
---         | isAlive =
---             currentCell
---                 |> getTotalLiveNeighbors cells
---                 |> doesLiveCellSurvive
---     }
--- else
---     { currentCell
---         | isAlive =
---             currentCell
---                 |> getTotalLiveNeighbors cells
---                 |> doesDeadRegenerate
---     }
-
-
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
