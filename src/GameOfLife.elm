@@ -172,15 +172,21 @@ doesDeadRegenerate totalLiveNeighbors =
 
 handleCellIteration : Array Cell -> Cell -> Cell
 handleCellIteration cells currentCell =
+    let
+        handleLiveCell =
+            getTotalLiveNeighbors cells >> doesLiveCellSurvive
+
+        handleDeadCell =
+            getTotalLiveNeighbors cells >> doesDeadRegenerate
+    in
     { currentCell
         | isAlive =
             currentCell
-                |> getTotalLiveNeighbors cells
                 |> (if currentCell.isAlive then
-                        doesLiveCellSurvive
+                        handleLiveCell
 
                     else
-                        doesDeadRegenerate
+                        handleDeadCell
                    )
     }
 

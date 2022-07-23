@@ -11131,11 +11131,18 @@ var $author$project$GameOfLife$getTotalLiveNeighbors = F2(
 	});
 var $author$project$GameOfLife$handleCellIteration = F2(
 	function (cells, currentCell) {
+		var handleLiveCell = A2(
+			$elm$core$Basics$composeR,
+			$author$project$GameOfLife$getTotalLiveNeighbors(cells),
+			$author$project$GameOfLife$doesLiveCellSurvive);
+		var handleDeadCell = A2(
+			$elm$core$Basics$composeR,
+			$author$project$GameOfLife$getTotalLiveNeighbors(cells),
+			$author$project$GameOfLife$doesDeadRegenerate);
 		return _Utils_update(
 			currentCell,
 			{
-				isAlive: (currentCell.isAlive ? $author$project$GameOfLife$doesLiveCellSurvive : $author$project$GameOfLife$doesDeadRegenerate)(
-					A2($author$project$GameOfLife$getTotalLiveNeighbors, cells, currentCell))
+				isAlive: (currentCell.isAlive ? handleLiveCell : handleDeadCell)(currentCell)
 			});
 	});
 var $elm$core$Elm$JsArray$map = _JsArray_map;
