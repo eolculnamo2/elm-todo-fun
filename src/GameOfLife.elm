@@ -75,6 +75,7 @@ type Msg
     = Start (List Bool)
     | RandomizeCells
     | Tick Time.Posix
+    | CellClicked Int
 
 
 halfTotalCells : Int
@@ -220,6 +221,22 @@ update msg model =
             , Random.generate Start generateRandomList
             )
 
+        CellClicked id ->
+            ( { model
+                | cells =
+                    model.cells
+                        |> Array.map
+                            (\cell ->
+                                if cell.id == id then
+                                    { cell | isAlive = cell.isAlive == False }
+
+                                else
+                                    cell
+                            )
+              }
+            , Cmd.none
+            )
+
         Tick time ->
             -- need to handle cell rules here
             ( { model | cells = model.cells |> Array.map (\cell -> handleCellIteration model.cells cell) }, Cmd.none )
@@ -230,13 +247,14 @@ subscriptions model =
     Time.every interval Tick
 
 
-mappedCells : Array Cell -> List (Html msg)
+mappedCells : Array Cell -> List (Html Msg)
 mappedCells cells =
     cells
         |> Array.map
             (\cell ->
                 div
-                    [ style "border" "1px solid #333"
+                    [ CellClicked cell.id |> onClick
+                    , style "border" "1px solid #333"
                     , style "height" (String.fromInt cellPxSize ++ "px")
                     , style "width" (String.fromInt cellPxSize ++ "px")
                     , style "background-color"
