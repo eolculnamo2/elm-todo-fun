@@ -237,13 +237,13 @@ update msg model =
             , Cmd.none
             )
 
-        Tick time ->
+        Tick _ ->
             -- need to handle cell rules here
             ( { model | cells = model.cells |> Array.map (\cell -> handleCellIteration model.cells cell) }, Cmd.none )
 
 
 subscriptions : Model -> Sub Msg
-subscriptions model =
+subscriptions _ =
     Time.every interval Tick
 
 
